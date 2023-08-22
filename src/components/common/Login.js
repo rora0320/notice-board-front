@@ -1,12 +1,12 @@
-import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { unAuthClient } from '../../utils/requestMethod';
+import {Button, TextField} from '@mui/material';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import terenzLogo from '../image/terenz_logo_w.svg';
 import kinonLogo from '../image/kinonLogin.svg';
-import { TfiClose } from 'react-icons/tfi';
+import {TfiClose} from 'react-icons/tfi';
 import styled from 'styled-components';
 import JoinUsModal from './joinUsModal/JoinUsModal';
+import axios from 'axios';
 
 const Wrap = styled.div`
   display: flex;
@@ -103,103 +103,104 @@ const BetweenBtn = styled.div`
 `;
 
 const Login = () => {
-  const [idData, setIdData] = useState('');
-  const [pwData, setPwData] = useState('');
-  const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+    const [idData, setIdData] = useState('');
+    const [pwData, setPwData] = useState('');
+    const [isOpenAddModal, setIsOpenAddModal] = useState(false);
 
-  const openModalJoinUs = () => {
-    setIsOpenAddModal(!isOpenAddModal);
-  };
+    const openModalJoinUs = () => {
+        setIsOpenAddModal(!isOpenAddModal);
+    };
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const postLoginSubmit = async () => {
-    try {
-      const { data } = await unAuthClient.post('/user', {
-        id: idData,
-        password: pwData,
-      });
-      console.log('data', data);
-    } catch (e) {
-      alert('아이디 비밀번호를 확인하세요.', e);
-      console.log('login Error', e);
-    }
-  };
+    const postLoginSubmit = async () => {
+        try {
+            const {data} = await axios.post('/user/signin', {
+                id: idData,
+                password: pwData,
+            });
+            console.log('data', data);
+            navigate('/board');
+        } catch (e) {
+            alert('아이디 비밀번호를 확인하세요.', e);
+            console.log('login Error', e);
+        }
+    };
 
-  // 엔터로 버튼 검색버튼 활성
-  const onEnterBtn = (el) => {
-    if (el.key === 'Enter') {
-      postLoginSubmit();
-    }
-  };
+    // 엔터로 버튼 검색버튼 활성
+    const onEnterBtn = (el) => {
+        if (el.key === 'Enter') {
+            postLoginSubmit();
+        }
+    };
 
-  // 아이디 비밀번호 입력받기
-  const handleInput = (e) => {
-    switch (e.target.name) {
-      case 'id':
-        setIdData(e.target.value);
-        break;
-      case 'password':
-        setPwData(e.target.value);
-        break;
+    // 아이디 비밀번호 입력받기
+    const handleInput = (e) => {
+        switch (e.target.name) {
+            case 'id':
+                setIdData(e.target.value);
+                break;
+            case 'password':
+                setPwData(e.target.value);
+                break;
 
-      default:
-        setIdData(null);
-        setPwData(null);
-        break;
-    }
-  };
+            default:
+                setIdData(null);
+                setPwData(null);
+                break;
+        }
+    };
 
-  return (
-    <>
-      <Wrap>
-        <Logo>
-          <img src={terenzLogo} alt="terenz_logo" />
-          <div>
-            <TfiClose />
-          </div>
-          <img src={kinonLogo} alt="kinon_logo" />
-        </Logo>
-        <WrapForm>
-          <TextField
-            name="id"
-            className="inputs_textfield"
-            placeholder="Email Address"
-            variant="standard" // border-bottom만 있는 form
-            onChange={(e) => handleInput(e)}
-          />
-          <TextField
-            name="password"
-            type="Password"
-            className="inputs_textfield"
-            placeholder="Password"
-            variant="standard" // border-bottom만 있는 form
-            onKeyPress={onEnterBtn}
-            onChange={(e) => handleInput(e)}
-          />
-          <BetweenBtn>
-            <Button
-              className="btns_loginBtn"
-              variant="contained"
-              onClick={postLoginSubmit}
-              color="primary"
-            >
-              LOGIN
-            </Button>
+    return (
+        <>
+            <Wrap>
+                <Logo>
+                    <img src={terenzLogo} alt="terenz_logo"/>
+                    <div>
+                        <TfiClose/>
+                    </div>
+                    <img src={kinonLogo} alt="kinon_logo"/>
+                </Logo>
+                <WrapForm>
+                    <TextField
+                        name="id"
+                        className="inputs_textfield"
+                        placeholder="Email Address"
+                        variant="standard" // border-bottom만 있는 form
+                        onChange={(e) => handleInput(e)}
+                    />
+                    <TextField
+                        name="password"
+                        type="Password"
+                        className="inputs_textfield"
+                        placeholder="Password"
+                        variant="standard" // border-bottom만 있는 form
+                        onKeyPress={onEnterBtn}
+                        onChange={(e) => handleInput(e)}
+                    />
+                    <BetweenBtn>
+                        <Button
+                            className="btns_loginBtn"
+                            variant="contained"
+                            onClick={postLoginSubmit}
+                            color="primary"
+                        >
+                            LOGIN
+                        </Button>
 
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={openModalJoinUs}
-            >
-              Join US
-            </Button>
-          </BetweenBtn>
-        </WrapForm>
-      </Wrap>
-      {isOpenAddModal && <JoinUsModal openModalJoinUs={openModalJoinUs} />}
-    </>
-  );
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={openModalJoinUs}
+                        >
+                            Join US
+                        </Button>
+                    </BetweenBtn>
+                </WrapForm>
+            </Wrap>
+            {isOpenAddModal && <JoinUsModal openModalJoinUs={openModalJoinUs}/>}
+        </>
+    );
 };
 
 export default Login;

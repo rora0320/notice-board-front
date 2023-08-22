@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {TfiClose} from 'react-icons/tfi';
 import {Button, TextField} from '@mui/material';
+import _ from 'lodash';
+import {unAuthClient} from '../../../utils/requestMethod';
 
 const JoinUsModal = ({openModalJoinUs}) => {
     const emailRegex = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -12,7 +14,7 @@ const JoinUsModal = ({openModalJoinUs}) => {
     const handleInputForm = (event) => {
         switch (event.target.name) {
             case 'ID':
-                if (!emailRegex.test(event.target.value)) break;
+                if (!emailRegex.test(event.target.value)) return
                 setIdEmail(event.target.value);
                 break;
             case 'PASSWORD':
@@ -24,9 +26,26 @@ const JoinUsModal = ({openModalJoinUs}) => {
         }
     };
     const checkedForm = () => {
-
+        if (_.isEmpty(idEmail) || _.isEmpty(password) || _.isEmpty(fullName)) {
+            return false
+        } else {
+            return true
+        }
     }
-    const submitInputForm = () => {
+    const submitInputForm = async () => {
+        const body = {
+            id: idEmail,
+            password: password,
+            name: fullName
+        }
+        if (checkedForm()) {
+            try {
+                const {data} = unAuthClient.post('192.168.20.16:3000/user/signup', body)
+                console.log('data', data)
+            } catch (e) {
+                console.log('사용자 추가 에러', e)
+            }
+        }
     };
     return (
         <ModalBackGround>
