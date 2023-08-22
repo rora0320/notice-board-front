@@ -50,4 +50,4 @@ authClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-export { unAuthClient, authClient};
+export { unAuthClient, authClient };

@@ -1,12 +1,12 @@
 import React from 'react';
-import NoticeBoard from "../components/noticeBoard/NoticeBoard";
+import NoticeBoard from '../components/noticeBoard/NoticeBoard';
 
 const NoticeBoardPage = () => {
-    return (
-        <>
-            <NoticeBoard/>
-        </>
-    );
+  return (
+    <>
+      <NoticeBoard />
+    </>
+  );
 };
 
 export default NoticeBoardPage;

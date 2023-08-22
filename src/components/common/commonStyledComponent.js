@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const WrapForm = styled.div`
   display: flex;
   align-items: center;
@@ -18,4 +18,4 @@ export const WrapForm = styled.div`
       border-bottom: 1.5px solid #9e9e9e;
     }
   }
-`
+`;

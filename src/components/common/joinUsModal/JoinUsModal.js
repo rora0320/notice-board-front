@@ -1,45 +1,77 @@
-import React from 'react';
-import styled from "styled-components";
-import {TfiClose} from "react-icons/tfi";
-import {Button, TextField} from "@mui/material";
+import React, {useState} from 'react';
+import styled from 'styled-components';
+import {TfiClose} from 'react-icons/tfi';
+import {Button, TextField} from '@mui/material';
 
-const JoinUsModal = () => {
+const JoinUsModal = ({openModalJoinUs}) => {
+    const emailRegex = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    const [idEmail, setIdEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [fullName, setFullName] = useState('');
+
+    const handleInputForm = (event) => {
+        switch (event.target.name) {
+            case 'ID':
+                if (!emailRegex.test(event.target.value)) break;
+                setIdEmail(event.target.value);
+                break;
+            case 'PASSWORD':
+                setPassword(event.target.value);
+                break;
+            case 'NAME':
+                setFullName(event.target.value);
+                break;
+        }
+    };
+    const checkedForm = () => {
+
+    }
+    const submitInputForm = () => {
+    };
     return (
         <ModalBackGround>
             <ModalWrap>
                 <TitleWrap>
-                    <h3 className='titleHead'>사용자 추가 모달 </h3>
-                    <TfiClose/>
+                    <h3 className="titleHead">사용자 추가</h3>
+                    <TfiClose className="titleClose" onClick={openModalJoinUs}/>
                 </TitleWrap>
                 <ContentWrap>
-                <InputFormWarp>
-                    <p>ID :</p>
-                    <TextField
-                        name="id"
-                        className='inputs_textfield'
-                        placeholder="Email Address"
-                        variant="standard"
-                    />
-                </InputFormWarp>
-                <InputFormWarp>
-                    <p>Password :</p>
-                    <TextField
-                        name="id"
-                        className='inputs_textfield'
-                        placeholder="Password"
-                        variant="standard"
-                    />
-                </InputFormWarp>
-                <InputFormWarp>
-                    <p>Name :</p>
-                    <TextField
-                        name="id"
-                        className='inputs_textfield'
-                        placeholder="Name"
-                        variant="standard"
-                    />
-                </InputFormWarp>
-                <Button className=''variant="contained">저장</Button>
+                    <InputFormWrap>
+                        <p>ID :</p>
+                        <TextField
+                            name="ID"
+                            className="inputs_textfield"
+                            placeholder="Email Address"
+                            variant="standard"
+                            value={idEmail}
+                            onChange={handleInputForm}
+                        />
+                    </InputFormWrap>
+                    <InputFormWrap>
+                        <p>Password :</p>
+                        <TextField
+                            name="PASSWORD"
+                            className="inputs_textfield"
+                            placeholder="Password"
+                            variant="standard"
+                            value={password}
+                            onChange={handleInputForm}
+                        />
+                    </InputFormWrap>
+                    <InputFormWrap>
+                        <p>Name :</p>
+                        <TextField
+                            name="NAME"
+                            className="inputs_textfield"
+                            placeholder="Name"
+                            variant="standard"
+                            value={fullName}
+                            onChange={handleInputForm}
+                        />
+                    </InputFormWrap>
+                    <CustomBtnWrap>
+                        <CustomBtn variant="contained" onClick={submitInputForm}>저장</CustomBtn>
+                    </CustomBtnWrap>
                 </ContentWrap>
             </ModalWrap>
         </ModalBackGround>
@@ -54,10 +86,10 @@ const ModalBackGround = styled.div`
   right: 0;
   background: rgba(0, 0, 0, 0.8);
   z-index: 2;
-`
+`;
+
 const ModalWrap = styled.div`
   position: fixed;
-  z-index: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -67,27 +99,32 @@ const ModalWrap = styled.div`
   border-radius: 5px;
   background-color: #313131;
   color: #e4e4e4;
-`
+
+  z-index: 1;
+`;
 const TitleWrap = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-end;
-  font-size: 25px;
   margin-bottom: 20px;
-  .titleHead{
-      position:absolute;
-        left:37%;
-    }
-  svg{
-    text-align: right;
+  font-size: 25px;
+
+  .titleHead {
+    position: absolute;
+    left: 37%;
+    text-align: center;
   }
-`
-const ContentWrap=styled.div`
+
+  svg:hover {
+    cursor: Pointer;
+  }
+`;
+const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
-const InputFormWarp = styled.div`
+`;
+const InputFormWrap = styled.div`
   display: flex;
   align-items: center;
   width: 90%;
@@ -102,10 +139,17 @@ const InputFormWarp = styled.div`
     margin: 15px;
 
     input {
-      //width: 140px;
       padding-left: 14px;
       color: #e4e4e4;
     }
   }
-`
+`;
+
+const CustomBtnWrap = styled.div`
+  margin-top: 30px;
+`;
+
+const CustomBtn = styled(Button)`
+  width: 100px;
+`;
 export default JoinUsModal;
