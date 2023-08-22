@@ -1,30 +1,127 @@
-import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { unAuthClient } from '../../utils/requestMethod';
-import s from './login.module.scss';
+import {Button, TextField} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {unAuthClient} from '../../utils/requestMethod';
 import terenzLogo from '../image/terenz_logo_w.svg';
 import kinonLogo from '../image/kinonLogin.svg';
-import { TfiClose } from 'react-icons/tfi';
+import {TfiClose} from 'react-icons/tfi';
+import styled from "styled-components";
+import JoinUsModal from "./joinUsModal/JoinUsModal";
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  color: #e4e4e4;
+  background-color: #111;
+  border: 1px solid red;
+
+  .login__inputs_btns {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20vh;
+
+    .inputs_textfield {
+      width: 400px;
+      margin-bottom: 20px;
+      padding: 10px 0;
+
+      input {
+        padding-left: 14px;
+        color: #e4e4e4;
+        border-bottom: 1.5px solid #9e9e9e;
+      }
+
+    }
+
+    .btns_loginBtn {
+      width: 400px;
+      margin-top: 40px;
+      border-radius: 20px;
+    }
+
+    .resetPw {
+      cursor: pointer;
+      margin-top: 20px;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .login__warningText {
+      position: absolute;
+      bottom: 15%;
+
+      color: #ff4356;
+      text-align: center;
+    }
+  }
+`
+const Logo = styled.div`
+  width: 100%;
+  text-align: center;
+
+  img {
+    width: 110px;
+  }
+
+  svg {
+    margin: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+`
+const WrapForm = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  margin-top: 20vh;
+  border: 1px solid red;
+
+  .inputs_textfield {
+    width: 400px;
+    border-bottom: 1.5px solid #9e9e9e;
+    margin: 20px;
+
+    input {
+      width: 140px;
+      padding-left: 14px;
+      color: #e4e4e4;
+      border-bottom: 1.5px solid #9e9e9e;
+    }
+  }
+`
+const BetweenBtn = styled.div`
+  .btns_loginBtn {
+    margin-right: 20px;
+  }
+`
 
 const Login = () => {
     const [idData, setIdData] = useState('');
     const [pwData, setPwData] = useState('');
-    const [resetPw, setResetPw] = useState(false);
+    const [isOpenAddModal, setIsOpenAddModal] = useState(false);
 
-    const handleReset = () => {
-        setResetPw(!resetPw);
+    const openModalJoinUs = () => {
+        setIsOpenAddModal(!isOpenAddModal);
     };
 
     const navigate = useNavigate();
 
     const postLoginSubmit = async () => {
         try {
-            const { data } = await unAuthClient.post('/user', {
+            const {data} = await unAuthClient.post('/user', {
                 id: idData,
                 password: pwData,
             });
-            console.log('data',data)
+            console.log('data', data)
         } catch (e) {
             alert('아이디 비밀번호를 확인하세요.', e);
             console.log('login Error', e);
@@ -56,57 +153,52 @@ const Login = () => {
     };
 
     return (
-        <div className={s.login}>
-            <div className={s.login__logos}>
-                <div className={s.logos_terenzLogo}>
-                    <img src={terenzLogo} alt="terenz_logo" />
-                </div>
-                <div>
-                    <TfiClose />
-                </div>
-                <div className={s.logos_kinonLogo}>
-                    <img src={kinonLogo} alt="kinon_logo" />
-                </div>
-            </div>
-            <div className={s.login__inputs_btns}>
-                <TextField
-                    name="id"
-                    className={s.inputs_textfield}
-                    placeholder="Email Address"
-                    variant="standard" // border-bottom만 있는 form
-                    onChange={(e) => handleInput(e)}
-                />
-                <TextField
-                    name="password"
-                    type="Password"
-                    className={s.inputs_textfield}
-                    placeholder="Password"
-                    variant="standard" // border-bottom만 있는 form
-                    onKeyPress={onEnterBtn}
-                    onChange={(e) => handleInput(e)}
-                />
-
-                    <Button
-                        className={s.btns_loginBtn}
-                        variant="contained"
-                        onClick={postLoginSubmit}
-                        color="primary"
-                    >
-                        LOGIN
-                    </Button>
-                {/* rest page 필요 */}
-
-                <p className={s.resetPw} onClick={handleReset}>
-                    Reset Password
-                </p>
-                {resetPw ? (
-                    <div className={s.login__warningText}>
-                        Please contact the administrator to change your Password.
+        <>
+            <Wrap>
+                <Logo>
+                    <img src={terenzLogo} alt="terenz_logo"/>
+                    <div>
+                        <TfiClose/>
                     </div>
-                ) : null}
-            </div>
-        </div>
+                    <img src={kinonLogo} alt="kinon_logo"/>
+                </Logo>
+                <WrapForm>
+                    <TextField
+                        name="id"
+                        className='inputs_textfield'
+                        placeholder="Email Address"
+                        variant="standard" // border-bottom만 있는 form
+                        onChange={(e) => handleInput(e)}
+                    />
+                    <TextField
+                        name="password"
+                        type="Password"
+                        className='inputs_textfield'
+                        placeholder="Password"
+                        variant="standard" // border-bottom만 있는 form
+                        onKeyPress={onEnterBtn}
+                        onChange={(e) => handleInput(e)}
+                    />
+                    <BetweenBtn>
+                        <Button
+                            className='btns_loginBtn'
+                            variant="contained"
+                            onClick={postLoginSubmit}
+                            color="primary"
+                        >
+                            LOGIN
+                        </Button>
+
+                        <Button variant="contained" color="secondary" onClick={openModalJoinUs}>
+                            Join US
+                        </Button>
+                    </BetweenBtn>
+                </WrapForm>
+            </Wrap>
+            {isOpenAddModal && <JoinUsModal/>}
+        </>
     );
 };
+
 
 export default Login;
