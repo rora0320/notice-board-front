@@ -1,6 +1,4 @@
 import axios from 'axios';
-import {useAtomValue} from 'jotai';
-import {TokenAtom} from '../jotai/jotai';
 
 axios.defaults.baseURL = '';
 const unAuthClient = axios.create({
@@ -12,8 +10,8 @@ const authClient = axios.create({
 
 authClient.interceptors.request.use(
     function (config) {
-        // const token = localStorage.getItem('login_board');
-        const token = useAtomValue(TokenAtom);
+        const token = localStorage.getItem('login_board');
+        // const token = useAtomValue(TokenAtom);
         // if (!token) throw new Error("localStorage is empty", { statusCode: 401 });
         if (!token) {
             const error = new Error('localStorage is empty');
