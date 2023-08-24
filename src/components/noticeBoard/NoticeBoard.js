@@ -8,6 +8,7 @@ import PageNation from '../common/PageNation';
 import {TokenAtom} from '../../jotai/jotai';
 import {useAtomValue} from 'jotai';
 import AddBoardModal from './addBoardModal/AddBoardModal';
+import {ContentWrap} from '../common/commonStyledComponent';
 // import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
@@ -161,11 +162,5 @@ const InputFormWrap = styled.div`
   }
 `;
 
-const ContentWrap = styled.div`
-  height: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  //border: 1px solid red;
-`;
+
 export default NoticeBoard;
