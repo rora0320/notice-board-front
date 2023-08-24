@@ -1,46 +1,79 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { FormControl, MenuItem, Select, TextField } from '@mui/material';
-import { FiSearch } from 'react-icons/fi';
+import {Button, FormControl, MenuItem, Select, TextField,} from '@mui/material';
+import {FiSearch} from 'react-icons/fi';
+import TableComponent from './TableComponent';
+import {authClient} from '../../utils/requestMethod';
+import PageNation from '../common/PageNation';
+import {TokenAtom} from '../../jotai/jotai';
+import {useAtomValue} from 'jotai';
+// import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
-  const [searchSelectedItem, setSearchSelectedItem] = useState('PatientId');
-  return (
-    <>
-      <MainNoticeWrap>
-        <MainTitleWrap>
-          <h1>title </h1>
-          <InputFormWrap>
-            <MuiFormControl variant="standard">
-              <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={searchSelectedItem}
-                label="options"
-                className="selectBox"
-              >
-                <MenuItem value={'PatientId'} selected>
-                  Patient ID
-                </MenuItem>
-                <MenuItem value={'name'}>Patient Name</MenuItem>
-              </Select>
-            </MuiFormControl>
+    const [searchSelectedItem, setSearchSelectedItem] = useState('title');
+    const [searchText, setSearchText] = useState(''); // 검색창 항목
+    const [noticeList, setNoticeList] = useState([]);
+    const [page, setPage] = useState(1);
+    const token = useAtomValue(TokenAtom);
+    // console.log('token?', TokenAtom.getItem('loginBoard'))
+    useEffect(() => {
+        getBoardList();
+    }, []);
 
-            <div>
-              <TextField
-                id="standard-search"
-                placeholder="Search"
-                type="search"
-                variant="standard"
-                className="inputs_textfield"
-              />
-              <FiSearch />
-            </div>
-          </InputFormWrap>
-        </MainTitleWrap>
-      </MainNoticeWrap>
-    </>
-  );
+    const getBoardList = async () => {
+        console.log('token?', token)
+        try {
+            const {data} = await authClient.get(`/board/list?page=${page}&searchItem=${searchSelectedItem}&searchText=${searchText}`);
+            console.log('data', data);
+            setNoticeList(data);
+        } catch (e) {
+            console.log('eee', e);
+        }
+    };
+    const handlePageChange = (e, page) => {
+        setPage(page);
+    }
+    return (
+        <>
+            <MainNoticeWrap>
+                <MainTitleWrap>
+                    <h1>title </h1>
+                    <InputFormWrap>
+                        <MuiFormControl variant="standard">
+                            <Select
+                                labelId="demo-simple-select-standard-label"
+                                id="demo-simple-select-standard"
+                                value={searchSelectedItem}
+                                label="options"
+                                className="selectBox"
+                            >
+                                <MenuItem value={'title'} selected>
+                                    Title
+                                </MenuItem>
+                                <MenuItem value={'name'}>Name</MenuItem>
+                            </Select>
+                        </MuiFormControl>
+
+                        <div>
+                            <TextField
+                                id="standard-search"
+                                placeholder="Search"
+                                type="search"
+                                variant="standard"
+                                className="inputs_textfield"
+                            />
+                            <FiSearch/>
+                        </div>
+                        <Button variant="contained">게시물 추가</Button>
+                    </InputFormWrap>
+                </MainTitleWrap>
+                <ContentWrap>
+                    <TableComponent noticeList={noticeList}></TableComponent>
+                    <PageNation page={page} handlePageChange={handlePageChange}/>
+                </ContentWrap>
+            </MainNoticeWrap>
+        </>
+    );
 };
 const MainNoticeWrap = styled.div`
   display: flex;
@@ -104,8 +137,8 @@ const InputFormWrap = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
-  border: 1px solid #c4c0c0;
-  border-radius: 4px;
+  //border: 1px solid #c4c0c0;
+  //border-radius: 4px;
 
   .inputs_textfield {
     width: 300px;
@@ -116,5 +149,13 @@ const InputFormWrap = styled.div`
       color: #e4e4e4;
     }
   }
+`;
+
+const ContentWrap = styled.div`
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //border: 1px solid red;
 `;
 export default NoticeBoard;
