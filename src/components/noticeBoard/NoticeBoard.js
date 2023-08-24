@@ -7,6 +7,7 @@ import {authClient} from '../../utils/requestMethod';
 import PageNation from '../common/PageNation';
 import {TokenAtom} from '../../jotai/jotai';
 import {useAtomValue} from 'jotai';
+import AddBoardModal from './addBoardModal/AddBoardModal';
 // import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
@@ -15,6 +16,7 @@ const NoticeBoard = () => {
     const [noticeList, setNoticeList] = useState([]);
     const [page, setPage] = useState(1);
     const token = useAtomValue(TokenAtom);
+    const [isOpenBoardModal, setIsOpenBoardModal] = useState(false)
     // console.log('token?', TokenAtom.getItem('loginBoard'))
     useEffect(() => {
         getBoardList();
@@ -33,8 +35,15 @@ const NoticeBoard = () => {
     const handlePageChange = (e, page) => {
         setPage(page);
     }
+    const handleSearchItemChange = (e) => {
+        setSearchSelectedItem(e.target.value)
+    }
+    const openAddBoardModal = () => {
+        setIsOpenBoardModal(!isOpenBoardModal);
+    }
     return (
         <>
+            {isOpenBoardModal && <AddBoardModal openAddBoardModal={openAddBoardModal}/>}
             <MainNoticeWrap>
                 <MainTitleWrap>
                     <h1>title </h1>
@@ -46,6 +55,7 @@ const NoticeBoard = () => {
                                 value={searchSelectedItem}
                                 label="options"
                                 className="selectBox"
+                                onChange={handleSearchItemChange}
                             >
                                 <MenuItem value={'title'} selected>
                                     Title
@@ -64,7 +74,7 @@ const NoticeBoard = () => {
                             />
                             <FiSearch/>
                         </div>
-                        <Button variant="contained">게시물 추가</Button>
+                        <Button variant="contained" onClick={openAddBoardModal}>게시물 추가</Button>
                     </InputFormWrap>
                 </MainTitleWrap>
                 <ContentWrap>
