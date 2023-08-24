@@ -1,3 +1,6 @@
-import { atom } from 'jotai';
+import {atom} from 'jotai';
+import {atomWithStorage} from 'jotai/utils'
 
-export const LOGIN = atom(false);
+export const LoginAtom = atom(false);
+
+export const TokenAtom = atomWithStorage('login_board', false);

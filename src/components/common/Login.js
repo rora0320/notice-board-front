@@ -6,7 +6,9 @@ import kinonLogo from '../image/kinonLogin.svg';
 import {TfiClose} from 'react-icons/tfi';
 import styled from 'styled-components';
 import JoinUsModal from './joinUsModal/JoinUsModal';
-import axios from 'axios';
+import {useSetAtom} from 'jotai';
+import {LoginAtom, TokenAtom} from '../../jotai/jotai';
+import {unAuthClient} from '../../utils/requestMethod';
 
 const Wrap = styled.div`
   display: flex;
@@ -107,19 +109,28 @@ const Login = () => {
     const [pwData, setPwData] = useState('');
     const [isOpenAddModal, setIsOpenAddModal] = useState(false);
 
+
+    const setIsLogin = useSetAtom(LoginAtom);
+    const setIsToken = useSetAtom(TokenAtom);
     const openModalJoinUs = () => {
         setIsOpenAddModal(!isOpenAddModal);
     };
 
     const navigate = useNavigate();
 
+
     const postLoginSubmit = async () => {
         try {
-            const {data} = await axios.post('/user/signin', {
+            const {data} = await unAuthClient.post('/user/signin', {
                 id: idData,
                 password: pwData,
             });
             console.log('data', data);
+            // localStorage.setItem('login_board', data.token);
+            localStorage.setItem('form', JSON.stringify(data.user));
+            setIsLogin(true);
+            setIsToken(data.token)
+
             navigate('/board');
         } catch (e) {
             alert('아이디 비밀번호를 확인하세요.', e);
