@@ -1,7 +1,8 @@
 import React from 'react';
-import {ModalBackGround, ModalWrap, TitleWrap} from '../../common/commonStyledComponent';
+import {ContentWrap, ModalBackGround, ModalWrap, TitleWrap} from '../../common/commonStyledComponent';
 import styled from 'styled-components';
 import {TfiClose} from 'react-icons/tfi';
+import {Button, TextField} from '@mui/material';
 
 const AddBoardModal = ({openAddBoardModal}) => {
     return (
@@ -11,7 +12,17 @@ const AddBoardModal = ({openAddBoardModal}) => {
                     <h3 className="titleHead">게시판 추가</h3>
                     <TfiClose className="titleClose" onClick={openAddBoardModal}/>
                 </TitleWrap>
-                <div>qweqweqweqweqwe</div>
+                <ContentWrapResize>
+                    <BoardText>
+                        <p>제목</p>
+                        <TextField/>
+                    </BoardText>
+                    <BoardContentText>
+                        <p>내용</p>
+                        <TextField/>
+                    </BoardContentText>
+                </ContentWrapResize>
+                <Button variant="contained">추가</Button>
             </ModalWrapResize>
         </ModalBackGround>
     );
@@ -20,5 +31,19 @@ const AddBoardModal = ({openAddBoardModal}) => {
 const ModalWrapResize = styled(ModalWrap)`
   height: 600px;
   width: 600px;
+  //border: 1px solid red;
+  text-align: center;
+
+`
+const ContentWrapResize = styled(ContentWrap)`
+  height: 85%;
+  //border: 2px solid blue;
+`
+const BoardText = styled.div`
+  display: flex;
+  border: 1px solid blueviolet;
+`
+const BoardContentText = styled(BoardText)`
+  height: 500px;
 `
 export default AddBoardModal;
