@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
+import {FaRegKissWinkHeart} from 'react-icons/fa';
 
 const TableComponent = ({noticeList, page}) => {
 
@@ -37,7 +38,7 @@ const TableComponent = ({noticeList, page}) => {
                                 <TableCell align="right">{notice.content}</TableCell>
                                 <TableCell align="right">{notice.carbs}</TableCell>
                                 <TableCell align="right">{moment(notice.create_time).format('YYYY-MM-DD')}</TableCell>
-                                <TableCell align="right">{notice.like_count}</TableCell>
+                                <TableCell align="right"><FaRegKissWinkHeart/>{notice.like_count}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
