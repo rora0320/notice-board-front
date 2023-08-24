@@ -8,14 +8,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
 import {FaRegKissWinkHeart} from 'react-icons/fa';
+import styled from 'styled-components';
 
 const TableComponent = ({noticeList, page}) => {
 
     return (
         <>
-            <TableContainer component={Paper}>
+            <TableWrap component={Paper}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
-                    <TableHead>
+                    <TableHeadResize>
                         <TableRow>
                             <TableCell>No.</TableCell>
                             <TableCell align="right"> 제목 </TableCell>
@@ -24,7 +25,7 @@ const TableComponent = ({noticeList, page}) => {
                             <TableCell align="right"> 작성일 </TableCell>
                             <TableCell align="right"> 추천(좋아요) </TableCell>
                         </TableRow>
-                    </TableHead>
+                    </TableHeadResize>
                     <TableBody>
                         {noticeList?.map((notice, index) => (
                             <TableRow
@@ -38,15 +39,57 @@ const TableComponent = ({noticeList, page}) => {
                                 <TableCell align="right">{notice.content}</TableCell>
                                 <TableCell align="right">{notice.carbs}</TableCell>
                                 <TableCell align="right">{moment(notice.create_time).format('YYYY-MM-DD')}</TableCell>
-                                <TableCell align="right"><FaRegKissWinkHeart/>{notice.like_count}</TableCell>
+                                <TableCell align="right">
+                                    <p>{notice.like_count}</p>
+                                    <FaRegKissWinkHeart
+                                        className='likeIcon'/>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
-
+            </TableWrap>
         </>
     );
 };
 
+const TableWrap = styled(TableContainer)`
+  background-color: #111 !important;
+  //border: 1px solid red;
+  border-radius: 0 !important;
+
+  th, td {
+    color: #fff;
+    text-align: center;
+  }
+
+  tbody {
+
+    tr:nth-child(odd) {
+      background-color: rgba(38, 95, 229, 0.15);
+    }
+  }
+
+  p {
+    display: inline-block;
+    //margin-top: -5px;
+    //border: 1px solid red;
+  }
+
+  .likeIcon {
+    font-size: 18px;
+    margin-left: 10px;
+    //margin-top: 5px;
+    //border: 1px solid red;
+  }
+`
+const TableHeadResize = styled(TableHead)`
+  height: 40px;
+
+  th {
+    height: 40px;
+    padding: 0 16px;
+
+  }
+`
 export default TableComponent;

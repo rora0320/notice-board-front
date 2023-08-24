@@ -65,9 +65,11 @@ export const TitleWrap = styled.div`
 `;
 
 export const ContentWrap = styled.div`
-  height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  width: 700px;
+  height: 700px;
   //border: 1px solid red;
 `;

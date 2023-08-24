@@ -19,7 +19,7 @@ const AddBoardModal = ({openAddBoardModal}) => {
                     </BoardText>
                     <BoardContentText>
                         <p>내용</p>
-                        <TextField/>
+                        <TextField className='contentSize'/>
                     </BoardContentText>
                 </ContentWrapResize>
                 <Button variant="contained">추가</Button>
@@ -36,14 +36,31 @@ const ModalWrapResize = styled(ModalWrap)`
 
 `
 const ContentWrapResize = styled(ContentWrap)`
+  width: 100%;
   height: 85%;
+
   //border: 2px solid blue;
 `
 const BoardText = styled.div`
   display: flex;
-  border: 1px solid blueviolet;
+  align-items: center;
+  justify-content: space-around;
+
+  input {
+    width: 500px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid #eee;
+    border-radius: 4px;
+  }
+
+  //border: 1px solid blueviolet;
 `
 const BoardContentText = styled(BoardText)`
   height: 500px;
+
+  input {
+    height: 400px;
+  }
 `
 export default AddBoardModal;

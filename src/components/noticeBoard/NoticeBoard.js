@@ -30,7 +30,7 @@ const NoticeBoard = () => {
             console.log('data', data);
             setNoticeList(data);
         } catch (e) {
-            console.log('eee', e);
+            console.log('게시판?', e);
         }
     };
     const handlePageChange = (e, page) => {
@@ -49,31 +49,35 @@ const NoticeBoard = () => {
                 <MainTitleWrap>
                     <h1>title </h1>
                     <InputFormWrap>
-                        <MuiFormControl variant="standard">
-                            <Select
-                                labelId="demo-simple-select-standard-label"
-                                id="demo-simple-select-standard"
-                                value={searchSelectedItem}
-                                label="options"
-                                className="selectBox"
-                                onChange={handleSearchItemChange}
-                            >
-                                <MenuItem value={'title'} selected>
-                                    Title
-                                </MenuItem>
-                                <MenuItem value={'name'}>Name</MenuItem>
-                            </Select>
-                        </MuiFormControl>
+                        <div className='search_btn'>
+                            <MuiFormControl variant="standard">
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={searchSelectedItem}
+                                    label="options"
+                                    className="selectBox"
+                                    onChange={handleSearchItemChange}
+                                >
+                                    <MenuItem value={'title'} selected>
+                                        Title
+                                    </MenuItem>
+                                    <MenuItem value={'name'}>Name</MenuItem>
+                                </Select>
+                            </MuiFormControl>
 
-                        <div>
-                            <TextField
-                                id="standard-search"
-                                placeholder="Search"
-                                type="search"
-                                variant="standard"
-                                className="inputs_textfield"
-                            />
-                            <FiSearch/>
+                            <div>
+                                <TextField
+                                    id="standard-search"
+                                    placeholder="Search"
+                                    type="search"
+                                    variant="standard"
+                                    className="inputs_textfield"
+                                />
+                                <button>
+                                    <FiSearch/>
+                                </button>
+                            </div>
                         </div>
                         <Button variant="contained" onClick={openAddBoardModal}>게시물 추가</Button>
                     </InputFormWrap>
@@ -99,6 +103,8 @@ const MainNoticeWrap = styled.div`
   background-color: #111;
 `;
 const MainTitleWrap = styled.div`
+  width: 700px;
+
   padding: 20px;
   font-size: 25px;
 
@@ -109,9 +115,9 @@ const MainTitleWrap = styled.div`
 `;
 const MuiFormControl = styled(FormControl)`
   .selectBox {
-    width: 165px;
-    height: 40px;
-    border-right: 1px solid #c4c0c0;
+    width: 120px;
+    //height: 32px;
+    border: 1px solid #c4c0c0;
     border-radius: 4px;
     color: #e4e4e4;
     //background-color: #e4e4e4;
@@ -144,20 +150,41 @@ const MuiFormControl = styled(FormControl)`
 
 const InputFormWrap = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
   width: 100%;
   margin-bottom: 20px;
   //border: 1px solid #c4c0c0;
   //border-radius: 4px;
+  .search_btn {
+    display: flex;
+
+    button {
+      cursor: pointer;
+      color: #fff;
+      font-size: 20px;
+      border: none;
+      background: none;
+      //border: 1px solid;
+      padding-top: 15px;
+    }
+  }
+
+  button {
+    height: 40px;
+  }
 
   .inputs_textfield {
-    width: 300px;
+    width: 420px;
+    height: 40px;
     border-bottom: 1.5px solid #9e9e9e;
     //margin: 15px;
     input {
+      height: 32px;
       padding-left: 14px;
       color: #e4e4e4;
+      //border: 1px solid red;
     }
   }
 `;
