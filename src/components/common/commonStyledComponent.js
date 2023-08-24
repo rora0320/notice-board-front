@@ -63,3 +63,11 @@ export const TitleWrap = styled.div`
     cursor: Pointer;
   }
 `;
+
+export const ContentWrap = styled.div`
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //border: 1px solid red;
+`;
