@@ -6,6 +6,7 @@ import {useEffect} from 'react';
 import {Backdrop, CircularProgress} from '@mui/material';
 import {useAtomValue} from 'jotai';
 import {LoginAtom, TokenAtom} from './jotai/jotai';
+import NoticeDatailPage from './pages/NoticeDatailPage';
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LoginPage/>}></Route>
                     <Route path={'/board'} element={<NoticeBoardPage/>}></Route>
-                    {/* <Route path={'/detailBoard/:boardPk'} element={<NoticeDatailPage/>}></Route>*/}
+                    <Route path={'/detailBoard/:boardPk'} element={<NoticeDatailPage/>}></Route>
                 </Routes>
             </BrowserRouter>
         </>

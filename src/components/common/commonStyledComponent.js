@@ -73,3 +73,29 @@ export const ContentWrap = styled.div`
   height: 700px;
   //border: 1px solid red;
 `;
+
+// ---게시판 보드화면 시작----
+export const MainNoticeWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  color: #e4e4e4;
+  text-align: center;
+
+  background-color: #111;
+`;
+
+export const MainTitleWrap = styled.div`
+  width: 700px;
+
+  padding: 20px;
+  font-size: 25px;
+
+  h1 {
+    margin-bottom: 20px;
+    //font-size: 25px;
+  }
+`;

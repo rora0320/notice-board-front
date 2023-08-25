@@ -4,9 +4,11 @@ import {FaRegKissWinkHeart} from 'react-icons/fa';
 import {authClient} from '../../utils/requestMethod';
 import {useAtomValue} from 'jotai';
 import {UserAtom} from '../../jotai/jotai';
+import {useNavigate} from 'react-router-dom';
 
-const TableCard = ({noticeList, getBoardList, openBoardDetailModal}) => {
+const TableCard = ({noticeList, getBoardList}) => {
     const userInfo = useAtomValue(UserAtom);
+    const navigate = useNavigate();
     const handleLikeCount = async (noticeInfo) => {
         try {
             await authClient.post(`/board/like/${noticeInfo.pk}`, {userPk: userInfo.pk});
@@ -14,6 +16,10 @@ const TableCard = ({noticeList, getBoardList, openBoardDetailModal}) => {
         } catch (e) {
             console.log('조항요 error', e)
         }
+    }
+    const openBoardDetailPage = (noticePk) => {
+        console.log('data와?', noticePk);
+        navigate(`/detailBoard/${noticePk}`);
     }
     return (
         <>
@@ -28,7 +34,7 @@ const TableCard = ({noticeList, getBoardList, openBoardDetailModal}) => {
                                     className='likeIcon'/>
                             </div>
                         </div>
-                        <div className='contentPosition' onClick={openBoardDetailModal}>
+                        <div className='contentPosition' onClick={() => openBoardDetailPage(notice.pk)}>
                             {notice.content}
                         </div>
                         <div className='contentPositionRight'>{notice.user.name}</div>

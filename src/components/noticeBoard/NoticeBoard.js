@@ -7,10 +7,9 @@ import PageNation from '../common/PageNation';
 import {TokenAtom} from '../../jotai/jotai';
 import {useAtomValue} from 'jotai';
 import AddBoardModal from './addBoardModal/AddBoardModal';
-import {ContentWrap} from '../common/commonStyledComponent';
+import {ContentWrap, MainNoticeWrap, MainTitleWrap} from '../common/commonStyledComponent';
 import {take} from '../../utils/config';
 import TableCard from './TableCard';
-import NoticeBoardDetail from './NoticeBoardDetail';
 // import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
@@ -19,9 +18,9 @@ const NoticeBoard = () => {
     const [noticeList, setNoticeList] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPageCount, setTotalPageCount] = useState(1)
-    const token = useAtomValue(TokenAtom);
     const [isOpenBoardModal, setIsOpenBoardModal] = useState(false);
-    const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
+
+    const token = useAtomValue(TokenAtom);
     // console.log('token?', TokenAtom.getItem('loginBoard'))
 
     useEffect(() => {
@@ -51,14 +50,10 @@ const NoticeBoard = () => {
         }
         setIsOpenBoardModal(!isOpenBoardModal);
     }
-    const openBoardDetailModal = () => {
-        setIsOpenDetailModal(!isOpenDetailModal);
-    }
+
     return (
         <>
-            {isOpenDetailModal && <NoticeBoardDetail openBoardDetailModal={openBoardDetailModal}/>}
             {isOpenBoardModal && <AddBoardModal openAddBoardModal={openAddBoardModal}/>}
-            {/* {isOpenDetailModal && <NoticeBoardDetail/>}*/}
             <MainNoticeWrap>
                 <MainTitleWrap>
                     <h1>title </h1>
@@ -102,7 +97,7 @@ const NoticeBoard = () => {
                 <ContentWrapCustom>
                     {/* <TableComponent noticeList={noticeList} getBoardList={getBoardList}></TableComponent>*/}
                     <TableCard noticeList={noticeList} getBoardList={getBoardList}
-                               openBoardDetailModal={openBoardDetailModal}></TableCard>
+                    ></TableCard>
                     {/* <PageNation page={page} handlePageChange={handlePageChange}/>*/}
                 </ContentWrapCustom>
                 <PageNation page={page} handlePageChange={handlePageChange}/>
@@ -110,29 +105,29 @@ const NoticeBoard = () => {
         </>
     );
 };
-const MainNoticeWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-
-  color: #e4e4e4;
-  text-align: center;
-
-  background-color: #111;
-`;
-const MainTitleWrap = styled.div`
-  width: 700px;
-
-  padding: 20px;
-  font-size: 25px;
-
-  h1 {
-    margin-bottom: 20px;
-    //font-size: 25px;
-  }
-`;
+// const MainNoticeWrap = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100vw;
+//   height: 100vh;
+//
+//   color: #e4e4e4;
+//   text-align: center;
+//
+//   background-color: #111;
+// `;
+// const MainTitleWrap = styled.div`
+//   width: 700px;
+//
+//   padding: 20px;
+//   font-size: 25px;
+//
+//   h1 {
+//     margin-bottom: 20px;
+//     //font-size: 25px;
+//   }
+// `;
 const MuiFormControl = styled(FormControl)`
   .selectBox {
     width: 120px;
