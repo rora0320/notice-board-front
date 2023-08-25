@@ -89,8 +89,6 @@ const BoardText = styled.div`
       border: 2px solid #0033ff;
     }
   }
-
-  //border: 1px solid blueviolet;
 `
 const BoardContentText = styled(BoardText)`
   height: 500px;
