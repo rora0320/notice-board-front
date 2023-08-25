@@ -75,6 +75,7 @@ const JoinUsModal = ({openModalJoinUs}) => {
                     <InputFormWrap>
                         <p>Password :</p>
                         <TextField
+                            type="Password"
                             name="PASSWORD"
                             className="inputs_textfield"
                             placeholder="Password"
