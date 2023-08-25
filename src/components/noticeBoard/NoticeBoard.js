@@ -9,6 +9,7 @@ import {TokenAtom} from '../../jotai/jotai';
 import {useAtomValue} from 'jotai';
 import AddBoardModal from './addBoardModal/AddBoardModal';
 import {ContentWrap} from '../common/commonStyledComponent';
+import {take} from '../../utils/config';
 // import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
@@ -26,7 +27,7 @@ const NoticeBoard = () => {
     const getBoardList = async () => {
         console.log('token?', token)
         try {
-            const {data} = await authClient.get(`/board/list?page=${page}&searchItem=${searchSelectedItem}&searchText=${searchText}`);
+            const {data} = await authClient.get(`/board/list?page=${page}&take=${take}&searchItem=${searchSelectedItem}&searchText=${searchText}`);
             console.log('data', data);
             setNoticeList(data);
         } catch (e) {
@@ -39,7 +40,10 @@ const NoticeBoard = () => {
     const handleSearchItemChange = (e) => {
         setSearchSelectedItem(e.target.value)
     }
-    const openAddBoardModal = () => {
+    const openAddBoardModal = (submit) => {
+        if (submit) {
+            getBoardList()
+        }
         setIsOpenBoardModal(!isOpenBoardModal);
     }
     return (
