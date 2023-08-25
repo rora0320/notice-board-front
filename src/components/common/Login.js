@@ -7,7 +7,7 @@ import {TfiClose} from 'react-icons/tfi';
 import styled from 'styled-components';
 import JoinUsModal from './joinUsModal/JoinUsModal';
 import {useSetAtom} from 'jotai';
-import {LoginAtom, TokenAtom} from '../../jotai/jotai';
+import {LoginAtom, TokenAtom, UserAtom} from '../../jotai/jotai';
 import {unAuthClient} from '../../utils/requestMethod';
 
 const Wrap = styled.div`
@@ -112,6 +112,7 @@ const Login = () => {
 
     const setIsLogin = useSetAtom(LoginAtom);
     const setIsToken = useSetAtom(TokenAtom);
+    const setUserInfo = useSetAtom(UserAtom);
     const openModalJoinUs = () => {
         setIsOpenAddModal(!isOpenAddModal);
     };
@@ -130,6 +131,7 @@ const Login = () => {
             localStorage.setItem('form', JSON.stringify(data.user));
             setIsLogin(true);
             setIsToken(data.token)
+            setUserInfo(JSON.stringify(data.user));
 
             navigate('/board');
         } catch (e) {
