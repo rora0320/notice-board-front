@@ -39,11 +39,11 @@ const NoticeBoard = () => {
         setPage(page);
     }
     const handleSearchItemChange = (e) => {
-        setSearchSelectedItem(e.target.value)
+        setSearchSelectedItem(e.target.value);
     }
     const openAddBoardModal = (submit) => {
         if (submit) {
-            getBoardList()
+            getBoardList();
         }
         setIsOpenBoardModal(!isOpenBoardModal);
     }
@@ -78,9 +78,12 @@ const NoticeBoard = () => {
                                     type="search"
                                     variant="standard"
                                     className="inputs_textfield"
+                                    onKeyPress={getBoardList}
+                                    value={searchText}
+                                    onChange={(e) => setSearchText(e.target.value)}
                                 />
                                 <button>
-                                    <FiSearch/>
+                                    <FiSearch onClick={getBoardList}/>
                                 </button>
                             </div>
                         </div>
