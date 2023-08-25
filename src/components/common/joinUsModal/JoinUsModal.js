@@ -45,6 +45,8 @@ const JoinUsModal = ({openModalJoinUs}) => {
                     '/user/signup',
                     body
                 );
+                alert('사용자 추가 완료');
+                openModalJoinUs();
                 console.log('data', data);
             } catch (e) {
                 console.log('사용자 추가 에러', e);
