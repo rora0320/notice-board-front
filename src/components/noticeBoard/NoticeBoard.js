@@ -17,6 +17,7 @@ const NoticeBoard = () => {
     const [searchText, setSearchText] = useState(''); // 검색창 항목
     const [noticeList, setNoticeList] = useState([]);
     const [page, setPage] = useState(1);
+    const [totalPageCount, setTotalPageCount] = useState(1)
     const token = useAtomValue(TokenAtom);
     const [isOpenBoardModal, setIsOpenBoardModal] = useState(false)
     // console.log('token?', TokenAtom.getItem('loginBoard'))
@@ -30,7 +31,8 @@ const NoticeBoard = () => {
         try {
             const {data} = await authClient.get(`/board/list?page=${page}&take=${take}&searchItem=${searchSelectedItem}&searchText=${searchText}`);
             console.log('data', data);
-            setNoticeList(data);
+            setNoticeList(data.boardList);
+            setTotalPageCount(data.pageCount)
         } catch (e) {
             console.log('게시판?', e);
         }
