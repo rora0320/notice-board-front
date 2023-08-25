@@ -15,7 +15,7 @@ const JoinUsModal = ({openModalJoinUs}) => {
     const handleInputForm = (event) => {
         switch (event.target.name) {
             case 'ID':
-                if (!emailRegex.test(event.target.value)) return;
+                // if (!emailRegex.test(event.target.value)) return;
                 setIdEmail(event.target.value);
                 break;
             case 'PASSWORD':
