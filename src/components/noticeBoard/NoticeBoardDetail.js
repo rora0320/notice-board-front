@@ -4,6 +4,7 @@ import {TextField} from '@mui/material';
 import styled from 'styled-components';
 import {authClient} from '../../utils/requestMethod';
 import {useParams} from 'react-router-dom';
+import {RiUserHeartFill} from 'react-icons/ri';
 
 const NoticeBoardDetail = () => {
     const params = useParams();
@@ -31,10 +32,20 @@ const NoticeBoardDetail = () => {
                     <p>내용</p>
                     <TextField name='content' value={detailData.content}/>
                 </BoardContentText>
-                <BoardText>
-                    <p>댓글</p>
-                    <TextField name='comment'/>
-                </BoardText>
+                <BoardComment>
+                    {detailData?.comments?.map((detail, index) => {
+                        return (
+                            <div className='commentsPrev' key={`comment${index}`}>
+                                <div><RiUserHeartFill/>{detail.user.name}</div>
+                                <div>{detail.comment}</div>
+                            </div>
+                        )
+                    })}
+                    <BoardText>
+                        <p>댓글</p>
+                        <TextField name='comment'/>
+                    </BoardText>
+                </BoardComment>
             </ContentWrap>
         </MainNoticeWrap>
     );
@@ -62,6 +73,15 @@ const BoardContentText = styled(BoardText)`
 
   input {
     height: 400px;
+  }
+`
+const BoardComment = styled.div`
+  //border: 1px solid violet;
+
+  .commentsPrev {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
   }
 `
 export default NoticeBoardDetail;
