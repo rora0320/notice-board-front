@@ -9,8 +9,8 @@ import {useAtomValue} from 'jotai';
 import AddBoardModal from './addBoardModal/AddBoardModal';
 import {ContentWrap} from '../common/commonStyledComponent';
 import {take} from '../../utils/config';
-import NoticeBoardDetail from './NoticeBoardDetail';
 import TableCard from './TableCard';
+import NoticeBoardDetail from './NoticeBoardDetail';
 // import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
@@ -51,10 +51,14 @@ const NoticeBoard = () => {
         }
         setIsOpenBoardModal(!isOpenBoardModal);
     }
+    const openBoardDetailModal = () => {
+        setIsOpenDetailModal(!isOpenDetailModal);
+    }
     return (
         <>
+            {isOpenDetailModal && <NoticeBoardDetail openBoardDetailModal={openBoardDetailModal}/>}
             {isOpenBoardModal && <AddBoardModal openAddBoardModal={openAddBoardModal}/>}
-            {isOpenDetailModal && <NoticeBoardDetail/>}
+            {/* {isOpenDetailModal && <NoticeBoardDetail/>}*/}
             <MainNoticeWrap>
                 <MainTitleWrap>
                     <h1>title </h1>
@@ -97,7 +101,8 @@ const NoticeBoard = () => {
                 </MainTitleWrap>
                 <ContentWrapCustom>
                     {/* <TableComponent noticeList={noticeList} getBoardList={getBoardList}></TableComponent>*/}
-                    <TableCard noticeList={noticeList} getBoardList={getBoardList}></TableCard>
+                    <TableCard noticeList={noticeList} getBoardList={getBoardList}
+                               openBoardDetailModal={openBoardDetailModal}></TableCard>
                     {/* <PageNation page={page} handlePageChange={handlePageChange}/>*/}
                 </ContentWrapCustom>
                 <PageNation page={page} handlePageChange={handlePageChange}/>

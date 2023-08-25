@@ -69,7 +69,6 @@ const ModalWrapResize = styled(ModalWrap)`
 const ContentWrapResize = styled(ContentWrap)`
   width: 100%;
   height: 85%;
-
   //border: 2px solid blue;
 `
 const BoardText = styled.div`
