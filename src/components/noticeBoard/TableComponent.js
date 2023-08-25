@@ -9,9 +9,20 @@ import Paper from '@mui/material/Paper';
 import moment from 'moment';
 import {FaRegKissWinkHeart} from 'react-icons/fa';
 import styled from 'styled-components';
+import {authClient} from '../../utils/requestMethod';
+import {useAtomValue} from 'jotai/index';
+import {UserAtom} from '../../jotai/jotai';
 
-const TableComponent = ({noticeList, page}) => {
-
+const TableComponent = ({noticeList, page, getBoardList}) => {
+    const userInfo = useAtomValue(UserAtom);
+    const handleLikeCount = async (noticeInfo) => {
+        try {
+            await authClient.post(`/board/like/${noticeInfo.pk}`, {userPk: userInfo.pk});
+            getBoardList();
+        } catch (e) {
+            console.log('조항요 error', e)
+        }
+    }
     return (
         <>
             <TableWrap component={Paper}>
@@ -42,7 +53,7 @@ const TableComponent = ({noticeList, page}) => {
                                 <TableCell align="right">
                                     <p>{notice.like_count}</p>
                                     <FaRegKissWinkHeart
-                                        className='likeIcon'/>
+                                        className='likeIcon' onClick={() => handleLikeCount(notice)}/>
                                 </TableCell>
                             </TableRow>
                         ))}

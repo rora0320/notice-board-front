@@ -20,6 +20,7 @@ const NoticeBoard = () => {
     const token = useAtomValue(TokenAtom);
     const [isOpenBoardModal, setIsOpenBoardModal] = useState(false)
     // console.log('token?', TokenAtom.getItem('loginBoard'))
+
     useEffect(() => {
         getBoardList();
     }, []);
@@ -87,7 +88,7 @@ const NoticeBoard = () => {
                     </InputFormWrap>
                 </MainTitleWrap>
                 <ContentWrap>
-                    <TableComponent noticeList={noticeList}></TableComponent>
+                    <TableComponent noticeList={noticeList} getBoardList={getBoardList}></TableComponent>
                     <PageNation page={page} handlePageChange={handlePageChange}/>
                 </ContentWrap>
             </MainNoticeWrap>
