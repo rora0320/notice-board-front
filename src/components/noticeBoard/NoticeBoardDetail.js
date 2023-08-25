@@ -14,7 +14,7 @@ const NoticeBoardDetail = () => {
 
     const [detailData, setDetailData] = useState([]);
     const [comment, setComment] = useState('');
-
+    const [title, setTitle] = useState('');
     useEffect(() => {
         fetchNoticeBoardDetail();
     }, []);
@@ -23,6 +23,7 @@ const NoticeBoardDetail = () => {
         const {data} = await authClient.get(`/board/detail/${params.boardPk}`);
         console.log('data', data);
         setDetailData(data[0]);
+
     }
     const submitComment = async () => {
         try {

@@ -56,13 +56,15 @@ const CardModel = styled.div`
   height: 150px;
   color: #c4c0c0;
   margin-right: 10px;
+  padding: 15px;
 
 
   .titlePosition {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+
 
     h1 {
       font-size: 20px;
@@ -87,8 +89,11 @@ const CardModel = styled.div`
     height: 85px;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-break: break-all;
-    //white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    border: 1px solid rgba(255, 80, 249, 0.44);
+    margin-bottom: 10px;
   }
 
   .contentPositionRight {

@@ -105,29 +105,7 @@ const NoticeBoard = () => {
         </>
     );
 };
-// const MainNoticeWrap = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100vw;
-//   height: 100vh;
-//
-//   color: #e4e4e4;
-//   text-align: center;
-//
-//   background-color: #111;
-// `;
-// const MainTitleWrap = styled.div`
-//   width: 700px;
-//
-//   padding: 20px;
-//   font-size: 25px;
-//
-//   h1 {
-//     margin-bottom: 20px;
-//     //font-size: 25px;
-//   }
-// `;
+
 const MuiFormControl = styled(FormControl)`
   .selectBox {
     width: 120px;
