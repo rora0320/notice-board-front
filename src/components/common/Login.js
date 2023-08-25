@@ -131,7 +131,7 @@ const Login = () => {
             localStorage.setItem('form', JSON.stringify(data.user));
             setIsLogin(true);
             setIsToken(data.token)
-            setUserInfo(JSON.stringify(data.user));
+            setUserInfo(data.user);
 
             navigate('/board');
         } catch (e) {
