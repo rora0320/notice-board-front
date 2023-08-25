@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {Button, FormControl, MenuItem, Select, TextField,} from '@mui/material';
 import {FiSearch} from 'react-icons/fi';
-import TableComponent from './TableComponent';
 import {authClient} from '../../utils/requestMethod';
 import PageNation from '../common/PageNation';
 import {TokenAtom} from '../../jotai/jotai';
@@ -10,6 +9,8 @@ import {useAtomValue} from 'jotai';
 import AddBoardModal from './addBoardModal/AddBoardModal';
 import {ContentWrap} from '../common/commonStyledComponent';
 import {take} from '../../utils/config';
+import NoticeBoardDetail from './NoticeBoardDetail';
+import TableCard from './TableCard';
 // import {TokenAtom} from '../../jotai/jotai';
 
 const NoticeBoard = () => {
@@ -19,7 +20,8 @@ const NoticeBoard = () => {
     const [page, setPage] = useState(1);
     const [totalPageCount, setTotalPageCount] = useState(1)
     const token = useAtomValue(TokenAtom);
-    const [isOpenBoardModal, setIsOpenBoardModal] = useState(false)
+    const [isOpenBoardModal, setIsOpenBoardModal] = useState(false);
+    const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
     // console.log('token?', TokenAtom.getItem('loginBoard'))
 
     useEffect(() => {
@@ -52,6 +54,7 @@ const NoticeBoard = () => {
     return (
         <>
             {isOpenBoardModal && <AddBoardModal openAddBoardModal={openAddBoardModal}/>}
+            {isOpenDetailModal && <NoticeBoardDetail/>}
             <MainNoticeWrap>
                 <MainTitleWrap>
                     <h1>title </h1>
@@ -92,10 +95,12 @@ const NoticeBoard = () => {
                         <Button variant="contained" onClick={openAddBoardModal}>게시물 추가</Button>
                     </InputFormWrap>
                 </MainTitleWrap>
-                <ContentWrap>
-                    <TableComponent noticeList={noticeList} getBoardList={getBoardList}></TableComponent>
-                    <PageNation page={page} handlePageChange={handlePageChange}/>
-                </ContentWrap>
+                <ContentWrapCustom>
+                    {/* <TableComponent noticeList={noticeList} getBoardList={getBoardList}></TableComponent>*/}
+                    <TableCard noticeList={noticeList} getBoardList={getBoardList}></TableCard>
+                    {/* <PageNation page={page} handlePageChange={handlePageChange}/>*/}
+                </ContentWrapCustom>
+                <PageNation page={page} handlePageChange={handlePageChange}/>
             </MainNoticeWrap>
         </>
     );
@@ -198,6 +203,8 @@ const InputFormWrap = styled.div`
     }
   }
 `;
-
+const ContentWrapCustom = styled(ContentWrap)`
+  flex-direction: row;
+`
 
 export default NoticeBoard;

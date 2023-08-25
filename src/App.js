@@ -2,7 +2,6 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import NoticeBoardPage from './pages/NoticeBoardPage';
-import NoticeDatailPage from './pages/NoticeDatailPage';
 import {useEffect} from 'react';
 import {Backdrop, CircularProgress} from '@mui/material';
 import {useAtomValue} from 'jotai';
@@ -35,7 +34,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LoginPage/>}></Route>
                     <Route path={'/board'} element={<NoticeBoardPage/>}></Route>
-                    <Route path={'/detailBoard/:boardPk'} element={<NoticeDatailPage/>}></Route>
+                    {/* <Route path={'/detailBoard/:boardPk'} element={<NoticeDatailPage/>}></Route>*/}
                 </Routes>
             </BrowserRouter>
         </>

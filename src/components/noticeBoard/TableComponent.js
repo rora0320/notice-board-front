@@ -59,16 +59,17 @@ const TableComponent = ({noticeList, page, getBoardList}) => {
                                 <TableCell align="right"
                                            onClick={() => selectNoticeBoard(notice.pk)}>{notice.user.name}</TableCell>
                                 <TableCell align="right">{moment(notice.create_time).format('YYYY-MM-DD')}</TableCell>
-                                <TableCell align="right">
+                                <TableCell align="right" onClick={() => handleLikeCount(notice)}>
                                     <p>{notice.like_count}</p>
                                     <FaRegKissWinkHeart
-                                        className='likeIcon' onClick={() => handleLikeCount(notice)}/>
+                                        className='likeIcon'/>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableWrap>
+
         </>
     );
 };
@@ -111,5 +112,10 @@ const TableHeadResize = styled(TableHead)`
     padding: 0 16px;
 
   }
+`
+const LittleCard = styled.div`
+  border: 1px solid red;
+  width: 400px;
+  height: 200px;
 `
 export default TableComponent;
