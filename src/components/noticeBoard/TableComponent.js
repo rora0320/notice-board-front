@@ -48,14 +48,16 @@ const TableComponent = ({noticeList, page, getBoardList}) => {
                             <TableRow
                                 key={notice.pk}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                onClick={() => selectNoticeBoard(notice.pk)}
                             >
                                 <TableCell component="th" scope="row">
                                     {index + 1}
                                 </TableCell>
-                                <TableCell align="right">{notice.title}</TableCell>
-                                <TableCell align="right">{notice.content}</TableCell>
-                                <TableCell align="right">{notice.user.name}</TableCell>
+                                <TableCell align="right"
+                                           onClick={() => selectNoticeBoard(notice.pk)}>{notice.title}</TableCell>
+                                <TableCell align="right"
+                                           onClick={() => selectNoticeBoard(notice.pk)}>{notice.content}</TableCell>
+                                <TableCell align="right"
+                                           onClick={() => selectNoticeBoard(notice.pk)}>{notice.user.name}</TableCell>
                                 <TableCell align="right">{moment(notice.create_time).format('YYYY-MM-DD')}</TableCell>
                                 <TableCell align="right">
                                     <p>{notice.like_count}</p>
