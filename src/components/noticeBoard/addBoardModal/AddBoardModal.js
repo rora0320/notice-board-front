@@ -1,10 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ContentWrap, ModalBackGround, ModalWrap, TitleWrap} from '../../common/commonStyledComponent';
 import styled from 'styled-components';
 import {TfiClose} from 'react-icons/tfi';
 import {Button, TextField} from '@mui/material';
+import {authClient} from '../../../utils/requestMethod';
+import {UserAtom} from '../../../jotai/jotai';
+import {useAtomValue} from 'jotai';
 
 const AddBoardModal = ({openAddBoardModal}) => {
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const userInfo = useAtomValue(UserAtom);
+
+    const handleInputText = (e) => {
+        switch (e.target.name) {
+            case 'title':
+                setTitle(e.target.value);
+                break;
+            case 'content':
+                setContent(e.target.value);
+                break;
+            default:
+                setContent('');
+                setTitle('');
+                break;
+        }
+    }
+    const submitNoticeBoard = async () => {
+        try {
+            const {data} = await authClient.post('/board/create', {title, content, user: userInfo.pk});
+            console.log('submit data', data);
+            openAddBoardModal(true)
+        } catch (e) {
+            console.log('submit error', e)
+        }
+
+    }
     return (
         <ModalBackGround>
             <ModalWrapResize>
@@ -15,14 +46,14 @@ const AddBoardModal = ({openAddBoardModal}) => {
                 <ContentWrapResize>
                     <BoardText>
                         <p>제목</p>
-                        <TextField/>
+                        <TextField name='title' value={title} onChange={handleInputText}/>
                     </BoardText>
                     <BoardContentText>
                         <p>내용</p>
-                        <TextField className='contentSize'/>
+                        <TextField name='content' value={content} onChange={handleInputText}/>
                     </BoardContentText>
                 </ContentWrapResize>
-                <Button variant="contained">추가</Button>
+                <Button variant="contained" onClick={submitNoticeBoard}>추가</Button>
             </ModalWrapResize>
         </ModalBackGround>
     );
@@ -52,6 +83,11 @@ const BoardText = styled.div`
     padding: 0;
     border: 1px solid #eee;
     border-radius: 4px;
+    color: #eee;
+
+    &: hover {
+      border: 2px solid #0033ff;
+    }
   }
 
   //border: 1px solid blueviolet;
