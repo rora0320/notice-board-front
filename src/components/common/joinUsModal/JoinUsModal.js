@@ -42,7 +42,7 @@ const JoinUsModal = ({openModalJoinUs}) => {
         if (checkedForm()) {
             try {
                 const {data} = unAuthClient.post(
-                    '192.168.20.16:3000/user/signup',
+                    '/user/signup',
                     body
                 );
                 console.log('data', data);
