@@ -12,9 +12,11 @@ import styled from 'styled-components';
 import {authClient} from '../../utils/requestMethod';
 import {useAtomValue} from 'jotai/index';
 import {UserAtom} from '../../jotai/jotai';
+import {useNavigate} from 'react-router-dom';
 
 const TableComponent = ({noticeList, page, getBoardList}) => {
     const userInfo = useAtomValue(UserAtom);
+    const navigate = useNavigate();
     const handleLikeCount = async (noticeInfo) => {
         try {
             await authClient.post(`/board/like/${noticeInfo.pk}`, {userPk: userInfo.pk});
@@ -22,6 +24,10 @@ const TableComponent = ({noticeList, page, getBoardList}) => {
         } catch (e) {
             console.log('조항요 error', e)
         }
+    }
+    const selectNoticeBoard = (boardPk) => {
+        console.log('???', boardPk)
+        navigate(`/detailBoard/${boardPk}`);
     }
     return (
         <>
@@ -42,13 +48,14 @@ const TableComponent = ({noticeList, page, getBoardList}) => {
                             <TableRow
                                 key={notice.pk}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                onClick={() => selectNoticeBoard(notice.pk)}
                             >
                                 <TableCell component="th" scope="row">
                                     {index + 1}
                                 </TableCell>
                                 <TableCell align="right">{notice.title}</TableCell>
                                 <TableCell align="right">{notice.content}</TableCell>
-                                <TableCell align="right">{notice.carbs}</TableCell>
+                                <TableCell align="right">{notice.user.name}</TableCell>
                                 <TableCell align="right">{moment(notice.create_time).format('YYYY-MM-DD')}</TableCell>
                                 <TableCell align="right">
                                     <p>{notice.like_count}</p>
