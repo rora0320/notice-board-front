@@ -94,6 +94,12 @@ const BoardContentText = styled(BoardText)`
 
   input {
     height: 400px;
+    width: 500px;
+    text-overflow: ellipsis;
+
+    display: -webkit-box;
+    webkit-line-clamp: 3; //원하는 라인수
+    webkit-box-orient: vertical
   }
 `
 export default AddBoardModal;

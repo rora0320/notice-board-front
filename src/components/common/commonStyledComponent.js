@@ -67,7 +67,7 @@ export const TitleWrap = styled.div`
 export const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   width: 700px;
   height: 700px;
